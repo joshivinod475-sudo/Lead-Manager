@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <head>
+  <title>Lead Manager</title>
+
+  <style>
+    body {
+      font-family: Arial;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px;
+      width: 320px;
+      margin: 8px auto;
+      border-radius: 8px;
+    }
+  </style>
+
+</head>
+  <title>Lead Manager</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      margin: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    li {
+      list-style: none;
+      background: white;
+      margin: 5px auto;
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+    }
+
+    li button {
+      background: red;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Vinod Lead Manager 🚀</h1>
+
+  <input type="text" id="leadInput" placeholder="Enter company name">
+  <button onclick="addLead()">Add Lead</button>
+
+  <ul id="leadList"></ul>
+
+  <script>
+    // ✅ ALWAYS TOP
+    let leads = JSON.parse(localStorage.getItem("leads")) || [];
+
+    function addLead() {
+      let input = document.getElementById("leadInput").value;
+
+      if (input === "") {
+        alert("Please enter a company");
+        return;
+      }
+
+      leads.push(input);
+
+      localStorage.setItem("leads", JSON.stringify(leads));
+
+      document.getElementById("leadInput").value = "";
+
+      renderLeads();
+    }
+
+    function renderLeads() {
+      let list = "";
+
+      for (let i = 0; i < leads.length; i++) {
+        list += `<li>
+          ${leads[i]} 
+          <button onclick="deleteLead(${i})">❌</button>
+        </li>`;
+      }
+
+      document.getElementById("leadList").innerHTML = list;
+    }
+
+    function deleteLead(index) {
+      leads.splice(index, 1);
+
+      localStorage.setItem("leads", JSON.stringify(leads));
+
+      renderLeads();
+    }
+
+    // ✅ ALWAYS LAST
+    renderLeads();
+  </script>
+
+</body>
+</html>
